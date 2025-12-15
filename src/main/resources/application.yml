@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ClusteredDataWarehouse
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fx_deals_warehouse
+    username: fx_user
+    password: fx_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    com.bloomberg.fxdeals: INFO
+    org.hibernate.SQL: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    com.bloomberg.fxdeals: WARN
+    org.hibernate.SQL: WARN
